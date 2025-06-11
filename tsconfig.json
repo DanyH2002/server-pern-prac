@@ -1,0 +1,49 @@
+{
+    "compilerOptions": {
+        "target": "ES2020",
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "declaration": true,
+        "strict": true,
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "paths": {
+            "*": [
+                "./src/*"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
+/*
+target: "ES2020" → Indica que el código será compilado para la versión ES2020 de JavaScript, permitiendo características modernas.
+
+module: "ESNext" → Usa el sistema de módulos más reciente (ESNext), asegurando compatibilidad con los import/export modernos.
+
+moduleResolution: "node" → TypeScript resolverá módulos como lo hace Node.js, buscando node_modules y utilizando el sistema de módulos de CommonJS/ESM.
+
+esModuleInterop: true → Habilita interoperabilidad entre CommonJS y ESModules, facilitando el uso de librerías que usan require en lugar de import.
+
+declaration: true → Genera archivos .d.ts para que otros proyectos puedan utilizar los tipos del código sin necesidad de compilarlo.
+
+strict: true → Activa el modo estricto, lo que obliga a escribir código más seguro y con menos errores al exigir tipos más precisos.
+
+outDir: "./dist" → Especifica la carpeta donde se generará el código compilado (dist).
+
+rootDir: "./src" → Indica dónde están los archivos fuente de TypeScript que serán procesados.
+
+paths: { "": ["./src/"] }** → Define alias para la resolución de módulos, permitiendo importar archivos de src sin rutas relativas confusas.
+
+include y exclude
+Controlan qué archivos se incluyen en la compilación:
+
+include: ["src//"]* → Incluye todos los archivos dentro de src, incluyendo subcarpetas.
+
+exclude: ["node_modules"] → Evita compilar archivos dentro de node_modules, optimizando el rendimiento y evitando problemas con dependencias externas.
+*/
