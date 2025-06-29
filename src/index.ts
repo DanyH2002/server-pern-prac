@@ -2,7 +2,8 @@
 // console.log("hola, estoy vivo de milagro");
 // suma(5, 10);
 
-import server from "./server.js";
-server.listen(4000, () => {
-    console.log('El puerto 4000 está funcionando')
+import server from "./server"
+const port = process.env.PORT || 4000;
+server.listen(port, () => {
+    console.log(`El servidor esta funcionando en el puerto:  ${port}`);
 })

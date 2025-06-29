@@ -1,18 +1,16 @@
 import { Router } from 'express';
-import { request, response } from 'express';
+import { createProduct, getAllProducts, getProductById, updateProduct, deleteProduct } from './handlers/product';
+import { handleInputErrors } from './middleware';
 
 const router = Router();
-router.get('/', (req, res) => {
-    res.send("Hola, somos power rangers");
-});
-router.post('/', (req, res) => {
-    res.send("Que el poder te acompañe");
-}); 
-router.put('/', (req, res) => {
-    res.send("El mejor power ranger es Tommy Oliver");
-});
-router.delete('/', (req, res) => {
-    res.send("El mejor villano es Lord Drakkon");
-});
+router.get('/', handleInputErrors, getAllProducts);
+
+router.get('/:id', handleInputErrors, getProductById);
+
+router.post('/', handleInputErrors, createProduct);
+
+router.put('/:id', handleInputErrors,updateProduct );
+
+router.delete('/:id', handleInputErrors, deleteProduct);
 
 export default router;

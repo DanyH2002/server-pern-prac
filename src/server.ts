@@ -1,13 +1,26 @@
 import express from 'express';
-import router from './router.js';
-//import { request } from 'http';
+import router from './router';
+import db from './config/db';
+import colors from 'colors';
+
+async function connectDB() {
+    try {
+        await db.authenticate();
+        db.sync();
+        console.log(colors.cyan.bold("Conexión a la base de datos establecida correctamente"));
+    }
+    catch (error) {
+        console.log(colors.white.bgRed.bold("No se pudo conectar a la base de datos: " + error));
+    }
+}
+
+connectDB();
+
+// Instacia del servidor
 const server = express();
-// server.get('/', (request, response) => { 
-//     response.send("Hola, somos galletas")
-// })
-// server.post('/', (request, response) => {
-//     response.send("Soy Patman, y estoy aquí para salvar el día")
-// })
+
+// leer datos de formulario
+server.use(express.json());
 
 server.use('/', router);
 export default server 
