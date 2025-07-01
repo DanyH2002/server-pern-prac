@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createProduct, getAllProducts, getProductById, updateProduct } from './handlers/product';
+import { createProduct, getAllProducts, getProductById, updateProduct, updateAvailability, deleteProduct } from './handlers/product';
 import { handleInputErrors } from './middleware';
 import { body, param } from 'express-validator';
 
@@ -42,4 +42,18 @@ router.put('/:id',
         .custom(value => value > 0).withMessage('El precio debe ser mayor que 0'),
     handleInputErrors, updateProduct);
 
+router.patch('/:id',
+    param('id')
+        .notEmpty().withMessage('El ID del producto es obligatorio')
+        .isNumeric().withMessage('El ID debe ser un número')
+        .custom(value => value > 0).withMessage('El ID debe ser mayor que 0'),
+    handleInputErrors, updateAvailability);
+
+router.delete('/:id',
+    param('id')
+        .notEmpty().withMessage('El ID del producto es obligatorio')
+        .isNumeric().withMessage('El ID debe ser un número')
+        .custom(value => value > 0).withMessage('El ID debe ser mayor que 0'),
+    handleInputErrors, deleteProduct);
+    
 export default router;
