@@ -22,5 +22,5 @@ const server = express();
 // leer datos de formulario
 server.use(express.json());
 
-server.use('/', router);
+server.use('/api', router);
 export default server 

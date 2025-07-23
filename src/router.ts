@@ -5,16 +5,16 @@ import { body, param } from 'express-validator';
 
 
 const router = Router();
-router.get('/', handleInputErrors, getAllProducts);
+router.get('/products', handleInputErrors, getAllProducts);
 
-router.get('/:id',
+router.get('/products/:id',
     param('id')
         .notEmpty().withMessage('El ID del producto es obligatorio')
         .isNumeric().withMessage('El ID debe ser un número')
         .custom(value => value > 0).withMessage('El ID debe ser mayor que 0'),
     handleInputErrors, getProductById);
 
-router.post('/',
+router.post('/products',
     body('name')
         .notEmpty().withMessage('El nombre es obligatorio')
         .isLength({ min: 3 }).withMessage('El nombre debe tener al menos 3 caracteres')
@@ -26,7 +26,7 @@ router.post('/',
         .custom(value => value > 0).withMessage('El precio debe ser mayor que 0'),
     handleInputErrors, createProduct);
 
-router.put('/:id',
+router.put('/products/:id',
     param('id')
         .notEmpty().withMessage('El ID del producto es obligatorio')
         .isNumeric().withMessage('El ID debe ser un número')
@@ -42,14 +42,14 @@ router.put('/:id',
         .custom(value => value > 0).withMessage('El precio debe ser mayor que 0'),
     handleInputErrors, updateProduct);
 
-router.patch('/:id',
+router.patch('/products/:id',
     param('id')
         .notEmpty().withMessage('El ID del producto es obligatorio')
         .isNumeric().withMessage('El ID debe ser un número')
         .custom(value => value > 0).withMessage('El ID debe ser mayor que 0'),
     handleInputErrors, updateAvailability);
 
-router.delete('/:id',
+router.delete('/products/:id',
     param('id')
         .notEmpty().withMessage('El ID del producto es obligatorio')
         .isNumeric().withMessage('El ID debe ser un número')
