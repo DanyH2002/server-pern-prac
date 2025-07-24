@@ -10,8 +10,7 @@ async function clearDatabase() {
         console.log("Base de datos conectada correctamente")
         if (args.includes('--clear')) {
             for (const model in models) {
-                const item = models[model];
-                await item.destroy({
+                await models[model].destroy({
                     where: {},
                     force: true
                 });

@@ -7,10 +7,10 @@ async function connectDB() {
     try {
         await db.authenticate();
         db.sync();
-        console.log(colors.cyan.bold("Conexión a la base de datos establecida correctamente"));
+        //console.log(colors.cyan.bold("Conexión a la base de datos establecida correctamente"));
     }
     catch (error) {
-        console.log(colors.white.bgRed.bold("No se pudo conectar a la base de datos: " + error));
+        //console.log(colors.white.bgRed.bold("No se pudo conectar a la base de datos: " + error));
     }
 }
 
