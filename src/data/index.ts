@@ -1,2 +1,28 @@
-import { Model, Sequelize } from "sequelize";
-import Product from "../models/Product.mo";
+import db from "../config/db";
+
+const args = process.argv.slice(2);
+const models = db.models;
+
+async function clearDatabase() {
+    try {
+        await db.authenticate();
+        db.sync();
+        console.log("Base de datos conectada correctamente")
+        if (args.includes('--clear')) {
+            for (const model in models) {
+                const item = models[model];
+                await item.destroy({
+                    where: {},
+                    force: true
+                });
+                console.log(`Modelo ${model} borrado correctamente`)
+            }
+        } else {
+            console.log("No se incluye el argumento --clear")
+        }
+    } catch (error) {
+        console.error("Error al limpiar la base de datos:", error);
+    }
+}
+
+clearDatabase();
