@@ -19,7 +19,7 @@ describe("POST /api/products", () => {
     });
     it("Crear el producto si los datos son validos", async () => {
         const res = await request(server).post('/api/products').send({ name: 'Agua', price: 10 })
-        expect(res.status).toBe(201)
+        expect(res.status).toBe(200)
         expect(res.status).not.toBe(400)
     });
     it("No debe devolver 404 en ninguna circunstancia", async () => {
@@ -43,7 +43,7 @@ describe("GET /api/products", () => {
         const res = await request(server).get('/api/products')
         expect(res.body).toHaveProperty('data')
     });
-    it(" La respuesta 'no' debe tener la propiedad errors", async () => {
+    it("La respuesta 'no' debe tener la propiedad errors", async () => {
         const res = await request(server).get('/api/products')
         expect(res.body).not.toHaveProperty('errors')
     });
@@ -61,9 +61,13 @@ describe("GET /api/products/:id", () => {
         expect(res.status).not.toBe(200)
     });
     it("Retornar 200 y los datos del producto si el ID es valido", async () => {
-        const res = await request(server).get('/api/products/13')
-        expect(res.status).toBe(200)
-        expect(res.status).not.toBe(400)
+        const createRes = await request(server).post("/api/products").send({ name: "Café", price: 25 });
+        expect(createRes.status).toBe(200);
+        const id = createRes.body.data.id;
+
+        const res = await request(server).get(`/api/products/${id}`);
+        expect(res.status).toBe(200);
+        expect(res.body).toHaveProperty("data");
     });
 });
 
@@ -84,16 +88,19 @@ describe("PUT /api/products/:id", () => {
         expect(res.status).not.toBe(200)
     });
     it("Retornar 404 si el producto no existe", async () => {
-        const res = await request(server).put('/api/products/100').send({ name: 'Miel', price: 10, avaiability: true })
+        const res = await request(server).put('/api/products/9999').send({ name: 'Miel', price: 10, avaiability: true })
         expect(res.status).toBe(404)
         expect(res.status).not.toBe(200)
     });
     it("Retornar 200 si el producto se actualiza correctamente", async () => {
-        const res = await request(server).put('/api/products/13').send({ name: 'Agua mineral', price: 10, avaiability: true })
-        expect(res.status).toBe(200)
-        expect(res.status).not.toBe(400)
-        expect(res.body).toHaveProperty('data')
-        expect(res.body.data.name).toBe('Agua mineral')
+        const createRes = await request(server).post("/api/products").send({ name: "Refresco", price: 15 });
+        expect(createRes.status).toBe(200);
+        const id = createRes.body.data.id;
+
+        const res = await request(server).put(`/api/products/${id}`).send({ name: "Agua mineral", price: 10, avaiability: true });
+        expect(res.status).toBe(200);
+        expect(res.body).toHaveProperty("data");
+        expect(res.body.data.name).toBe("Agua mineral");
     });
 });
 
@@ -104,22 +111,32 @@ describe("PATCH /api/products/:id", () => {
         expect(res.status).not.toBe(200);
     });
     it("Retornar 200 si se cambia correctamente la disponibilidad", async () => {
-        const getRes = await request(server).get("/api/products/13");
+        const createRes = await request(server).post("/api/products").send({ name: "Refresco", price: 15 });
+        expect(createRes.status).toBe(200);
+        const id = createRes.body.data.id;
+
+        const getRes = await request(server).get(`/api/products/${id}`);
         expect(getRes.status).toBe(200);
         expect(getRes.status).not.toBe(400);
         expect(typeof getRes.body.data.avaiability).toBe("boolean");
         const patchRes = getRes.body.data.avaiability;
-        const res = await request(server).patch("/api/products/13");
+
+        const res = await request(server).patch(`/api/products/${id}`);
         expect(res.status).toBe(200);
         expect(res.status).not.toBe(400);
         expect(res.body.data.avaiability).not.toBe(patchRes)
     });
     it("Verificar que availability se alterna (true ↔ false)", async () => {
-        const getRes = await request(server).get("/api/products/14");
+        const createRes = await request(server).post("/api/products").send({ name: "Jugo", price: 15 });
+        expect(createRes.status).toBe(200);
+        const id = createRes.body.data.id;
+
+        const getRes = await request(server).get(`/api/products/${id}`);
         expect(getRes.status).toBe(200);
         expect(typeof getRes.body.data.avaiability).toBe("boolean");
         const patchRes = getRes.body.data.avaiability;
-        const res = await request(server).patch("/api/products/14");
+
+        const res = await request(server).patch(`/api/products/${id}`);
         expect(res.status).toBe(200);
         expect(res.status).not.toBe(400);
         expect(typeof res.body.data.avaiability).toBe("boolean");

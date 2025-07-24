@@ -6,7 +6,7 @@ const models = db.models;
 async function clearDatabase() {
     try {
         await db.authenticate();
-        db.sync();
+        await db.sync();
         console.log("Base de datos conectada correctamente")
         if (args.includes('--clear')) {
             for (const model in models) {

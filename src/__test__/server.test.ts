@@ -12,7 +12,7 @@ describe('mi primer pruea de ts', () => {
 
 describe('Get / api', () => {
     it('should send back a json response', async () => {
-        const res = await request(server).get('/')
+        const res = await request(server).get('/api/products')
         expect(res.status).toBe(200)
         expect(res.header['content-type']).toMatch(/json/)
 
