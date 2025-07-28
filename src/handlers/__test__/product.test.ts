@@ -1,5 +1,7 @@
 import request from "supertest";
 import server from "../../server";
+import { createProduct, getAllProducts } from "../product";
+jest.mock("../product")
 
 describe("POST /api/products", () => {
     it("Debe mostrar errores de validación si el cuerpo está vacío", async () => {
@@ -26,6 +28,14 @@ describe("POST /api/products", () => {
         const res = await request(server).post('/api/products').send({ name: 'Chocolate', price: 10 })
         expect(res.status).not.toBe(404)
     });
+    it("No se crea el producto", async () => {
+       //jest.spyOn(createProduct).mockRejectedValueOnce(new Error("Error al crear el producto"));
+       const concoSpy = jest.spyOn(console,"log");
+       await createProduct(Request,Response)
+       expect(concoSpy).toHaveBeenCalledWith(
+        expect.stringContaining("Error al crear el producto")
+       );
+    })
 });
 
 describe("GET /api/products", () => {
@@ -172,3 +182,14 @@ describe("DELETE /api/products/:id", () => {
         expect(res.body.message).toBe(`Producto eliminado con id: ${id}`);
     });
 });
+
+/*describe('Connect to database', () => {
+    it('should be ', async () => {
+       jest.spyOn(db,"authenticate").mockRejectedValueOnce(new Error("No se pudo conectar a la base de datos"));
+       const concoSpy = jest.spyOn(console,"log");
+       await connectDB();
+       expect(concoSpy).toHaveBeenCalledWith(
+        expect.stringContaining("No se pudo conectar a la base de datos")
+       );
+    })
+})*/

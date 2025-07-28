@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">89.28% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>47/47</span>
+                <span class='fraction'>50/56</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">88% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>41/41</span>
+                <span class='fraction'>44/50</span>
             </div>
         
             
@@ -150,7 +150,7 @@
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a>
 <a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -158,23 +158,23 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -187,7 +187,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -202,7 +202,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -216,9 +216,9 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -232,7 +232,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Request, Response } from 'express';
@@ -244,7 +244,7 @@ export const createProduct = async (req: Request, res: Response) =&gt; {
         const product = await Product.create(req.body);
         res.json({ data: product });
     } catch (error) {
-        //console.error(colors.red.bold("Error al crear el producto: " + error));
+<span class="cstat-no" title="statement not covered" >        console.log(colors.red.bold("Error al crear el producto: " + error));</span>
     }
 }
 &nbsp;
@@ -257,10 +257,10 @@ export const getAllProducts = async (req: Request, res: Response) =&gt; {
 &nbsp;
             }
         );
-        //console.log(colors.green.bold("Obteniendo todos los productos"));
+        console.log(colors.green.bold("Obteniendo todos los productos"));
         res.json({ data: products });
     } catch (error) {
-        //console.error(colors.red.bold("Error al obtener los productos: " + error));
+<span class="cstat-no" title="statement not covered" >        console.log(colors.red.bold("Error al obtener los productos: " + error));</span>
     }
 }
 &nbsp;
@@ -273,7 +273,7 @@ export const getProductById = async (req: Request, res: Response) =&gt; {
         }
         res.json({ data: product });
     } catch (error) {
-        //console.error(colors.red.bold("Error al obtener el producto: " + error));
+<span class="cstat-no" title="statement not covered" >        console.log(colors.red.bold("Error al obtener el producto: " + error));</span>
     }
 }
 &nbsp;
@@ -288,7 +288,7 @@ export const updateProduct = async (req: Request, res: Response) =&gt; {
         await product.update(req.body);
         res.json({ data: product });
     } catch (error) {
-        //console.error(colors.red.bold("Error al actualizar el producto: " + error));
+<span class="cstat-no" title="statement not covered" >        console.log(colors.red.bold("Error al actualizar el producto: " + error));</span>
     }
 }
 &nbsp;
@@ -302,9 +302,9 @@ export const updateAvailability = async (req: Request, res: Response) =&gt; {
         product.avaiability = !product.dataValues.avaiability;
         await product.save();
         res.json({ data: product });
-        //console.log(colors.green.bold("Disponibilidad del producto actualizada correctamente")); 
+        console.log(colors.green.bold("Disponibilidad del producto actualizada correctamente")); 
     } catch (error) {
-        //console.error(colors.red.bold("Error al actualizar la disponibilidad del producto: " + error));
+<span class="cstat-no" title="statement not covered" >        console.log(colors.red.bold("Error al actualizar la disponibilidad del producto: " + error));</span>
     }
 }
 &nbsp;
@@ -318,7 +318,7 @@ export const deleteProduct = async (req: Request, res: Response) =&gt; {
         await product.destroy();
         res.json({ message: `Producto eliminado con id: ${id}` });
     } catch (error) {
-        //console.error(colors.red.bold("Error al eliminar el producto: " + error));
+<span class="cstat-no" title="statement not covered" >        console.log(colors.red.bold("Error al eliminar el producto: " + error));</span>
     }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -328,7 +328,7 @@ export const deleteProduct = async (req: Request, res: Response) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-24T19:05:23.658Z
+                at 2025-07-28T18:39:06.009Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
