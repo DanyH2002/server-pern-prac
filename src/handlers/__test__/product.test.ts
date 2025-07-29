@@ -1,6 +1,7 @@
 import request from "supertest";
 import server from "../../server";
-import { createProduct, getAllProducts } from "../product";
+import { createProduct, getAllProducts, getProductById, updateProduct, updateAvailability, deleteProduct } from "../product";
+import Product from "../../models/Product.mo";
 jest.mock("../product")
 
 describe("POST /api/products", () => {
@@ -29,13 +30,15 @@ describe("POST /api/products", () => {
         expect(res.status).not.toBe(404)
     });
     it("No se crea el producto", async () => {
-       //jest.spyOn(createProduct).mockRejectedValueOnce(new Error("Error al crear el producto"));
-       const concoSpy = jest.spyOn(console,"log");
-       await createProduct(Request,Response)
-       expect(concoSpy).toHaveBeenCalledWith(
-        expect.stringContaining("Error al crear el producto")
-       );
-    })
+        const req = { body: { name: "Café", price: 20 } };
+        const res = { json: jest.fn() };
+        jest.spyOn(Product, "create").mockRejectedValueOnce(new Error("Error al crear el producto"));
+        const logSpy = jest.spyOn(console, "log").mockImplementation(() => { });
+        await createProduct(req, res);
+        expect(logSpy).toHaveBeenCalledWith(
+            expect.stringContaining("Error al crear el producto")
+        );
+    });
 });
 
 describe("GET /api/products", () => {
@@ -56,6 +59,16 @@ describe("GET /api/products", () => {
     it("La respuesta 'no' debe tener la propiedad errors", async () => {
         const res = await request(server).get('/api/products')
         expect(res.body).not.toHaveProperty('errors')
+    });
+    it("No debe mostrar productos", async () => {
+        const req = {};
+        const res = {};
+        jest.spyOn(Product, "findAll").mockRejectedValueOnce(new Error("Error al obtener los productos"));
+        const logSpy = jest.spyOn(console, "log");
+        await getAllProducts(req, res);
+        expect(logSpy).toHaveBeenCalledWith(
+            expect.stringContaining("Error al obtener los productos")
+        );
     });
 });
 
@@ -79,6 +92,17 @@ describe("GET /api/products/:id", () => {
         expect(res.status).toBe(200);
         expect(res.body).toHaveProperty("data");
     });
+    it("Falla al obtener el producto por ID", async () => {
+        const req = { params: { id: "1" } };
+        const res = { status: jest.fn(() => res), json: jest.fn() };
+        jest.spyOn(Product, "findByPk").mockRejectedValueOnce(new Error("Error al obtener el producto"));
+        const logSpy = jest.spyOn(console, "log");
+        await getProductById(req, res);
+        expect(logSpy).toHaveBeenCalledWith(
+            expect.stringContaining("Error al obtener el producto")
+        );
+    });
+
 });
 
 describe("PUT /api/products/:id", () => {
@@ -112,6 +136,17 @@ describe("PUT /api/products/:id", () => {
         expect(res.body).toHaveProperty("data");
         expect(res.body.data.name).toBe("Agua mineral");
     });
+    it("Falla la actualización del producto", async () => {
+        const req = { params: { id: "1" }, body: { name: "Nuevo" } };
+        const res = { status: jest.fn(() => res), json: jest.fn() };
+        jest.spyOn(Product, "findByPk").mockRejectedValueOnce(new Error("Error al actualizar el producto"));
+        const logSpy = jest.spyOn(console, "log");
+        await updateProduct(req, res);
+        expect(logSpy).toHaveBeenCalledWith(
+            expect.stringContaining("Error al actualizar el producto")
+        );
+    });
+
 });
 
 describe("PATCH /api/products/:id", () => {
@@ -153,6 +188,17 @@ describe("PATCH /api/products/:id", () => {
         const patchRes2 = res.body.data.avaiability;
         expect(patchRes).not.toBe(patchRes2);
     });
+    it("Falla al actualizar la disponibilidad", async () => {
+        const req = { params: { id: "1" } };
+        const res = { status: jest.fn(() => res), json: jest.fn() };
+        jest.spyOn(Product, "findByPk").mockRejectedValueOnce(new Error("Error al actualizar la disponibilidad del producto"));
+        const logSpy = jest.spyOn(console, "log");
+        await updateAvailability(req, res);
+        expect(logSpy).toHaveBeenCalledWith(
+            expect.stringContaining("Error al actualizar la disponibilidad del producto")
+        );
+    });
+
 });
 
 describe("DELETE /api/products/:id", () => {
@@ -181,15 +227,15 @@ describe("DELETE /api/products/:id", () => {
         expect(res.body).toHaveProperty("message");
         expect(res.body.message).toBe(`Producto eliminado con id: ${id}`);
     });
-});
+    it("Falla al eliminar el producto", async () => {
+        const req = { params: { id: "1" } };
+        const res = { status: jest.fn(() => res), json: jest.fn() };
+        jest.spyOn(Product, "findByPk").mockRejectedValueOnce(new Error("Error al eliminar el producto"));
+        const logSpy = jest.spyOn(console, "log");
+        await deleteProduct(req, res);
+        expect(logSpy).toHaveBeenCalledWith(
+            expect.stringContaining("Error al eliminar el producto")
+        );
+    });
 
-/*describe('Connect to database', () => {
-    it('should be ', async () => {
-       jest.spyOn(db,"authenticate").mockRejectedValueOnce(new Error("No se pudo conectar a la base de datos"));
-       const concoSpy = jest.spyOn(console,"log");
-       await connectDB();
-       expect(concoSpy).toHaveBeenCalledWith(
-        expect.stringContaining("No se pudo conectar a la base de datos")
-       );
-    })
-})*/
+});

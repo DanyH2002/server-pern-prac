@@ -23,7 +23,7 @@ export const getAllProducts = async (req: Request, res: Response) => {
         console.log(colors.green.bold("Obteniendo todos los productos"));
         res.json({ data: products });
     } catch (error) {
-        console.log(colors.red.bold("Error al obtener los productos: " + error));
+        console.log(colors.red.bold("Error al obtener los productos"));
     }
 }
 
@@ -36,7 +36,7 @@ export const getProductById = async (req: Request, res: Response) => {
         }
         res.json({ data: product });
     } catch (error) {
-        console.log(colors.red.bold("Error al obtener el producto: " + error));
+        console.log(colors.red.bold("Error al obtener el producto"));
     }
 }
 
@@ -51,7 +51,7 @@ export const updateProduct = async (req: Request, res: Response) => {
         await product.update(req.body);
         res.json({ data: product });
     } catch (error) {
-        console.log(colors.red.bold("Error al actualizar el producto: " + error));
+        console.log(colors.red.bold("Error al actualizar el producto"));
     }
 }
 
@@ -65,9 +65,9 @@ export const updateAvailability = async (req: Request, res: Response) => {
         product.avaiability = !product.dataValues.avaiability;
         await product.save();
         res.json({ data: product });
-        console.log(colors.green.bold("Disponibilidad del producto actualizada correctamente")); 
+        console.log(colors.green.bold("Disponibilidad del producto actualizada correctamente"));
     } catch (error) {
-        console.log(colors.red.bold("Error al actualizar la disponibilidad del producto: " + error));
+        console.log(colors.red.bold("Error al actualizar la disponibilidad del producto"));
     }
 }
 
@@ -81,6 +81,6 @@ export const deleteProduct = async (req: Request, res: Response) => {
         await product.destroy();
         res.json({ message: `Producto eliminado con id: ${id}` });
     } catch (error) {
-        console.log(colors.red.bold("Error al eliminar el producto: " + error));
+        console.log(colors.red.bold("Error al eliminar el producto"));
     }
 }
