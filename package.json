@@ -8,8 +8,8 @@
     "serve": "nodemon --watch 'src/**/*.ts' --exec 'node --loader ts-node/esm' --no-warnings src/index.ts",
     "build": "tsc",
     "test": "jest --detectOpenHandles --testTimeout=10000",
-    "test:coverage" : "npm run pretest && jest --detectOpenHandles --coverage --testTimeout=10000",
-    "pretest" : "ts-node ./src/data --clear"
+    "test:coverage": "npm run pretest && jest --detectOpenHandles --coverage --testTimeout=10000",
+    "pretest": "ts-node ./src/data --clear"
   },
   "author": "Hulda Daniela Crisanto Luna",
   "license": "ISC",
@@ -17,9 +17,13 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^24.0.1",
     "@types/supertest": "^6.0.3",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
     "jest": "^30.0.3",
     "nodemon": "^3.1.10",
     "supertest": "^7.1.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "ts-jest": "^29.4.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
