@@ -2,7 +2,14 @@ import request from "supertest";
 import server from "../../server";
 import { createProduct, getAllProducts, getProductById, updateProduct, updateAvailability, deleteProduct } from "../product";
 import Product from "../../models/Product.mo";
-jest.mock("../product")
+//jest.mock("../product")
+/*jest.mock("../../models/Product.mo", () => ({
+    __esModule: true,
+    default: {
+        create: jest.fn(),
+    },
+}));*/
+
 
 describe("POST /api/products", () => {
     it("Debe mostrar errores de validación si el cuerpo está vacío", async () => {
@@ -176,17 +183,25 @@ describe("DELETE /api/products/:id", () => {
     });
 });
 
-// describe("Pase de logs", () => {
-//     it("No se crea el producto", async () => {
-//         const req = { body: { name: "Café", price: 20 } };
-//         const res = { json: jest.fn() };
-//         jest.spyOn(Product, "create").mockRejectedValueOnce(new Error("Error al crear el producto"));
-//         const logSpy = jest.spyOn(console, "log").mockImplementation(() => { });
-//         await createProduct(req, res);
-//         expect(logSpy).toHaveBeenCalledWith(
-//             expect.stringContaining("Error al crear el producto")
-//         );
-//     });
+//describe("Pase de logs", () => {
+// it("No se crea el producto", async () => {
+//     const req: any = {
+//         body: {
+//             name: "Café",
+//             price: 20,
+//         },
+//     };
+//     const res: any = {
+//         json: jest.fn(),
+//         status: jest.fn().mockReturnThis(),
+//     };
+//     (Product.create as jest.Mock).mockRejectedValueOnce(new Error("Error al crear el producto"));
+//     const logSpy = jest.spyOn(console, "log").mockImplementation(() => { });
+//     await createProduct(req, res);
+//     expect(logSpy).toHaveBeenCalledWith(
+//         expect.stringContaining("Error al crear el producto")
+//     );
+// });
 //     it("No debe mostrar productos", async () => {
 //         const req = {};
 //         const res = {};
@@ -237,4 +252,4 @@ describe("DELETE /api/products/:id", () => {
 //             expect.stringContaining("Error al eliminar el producto")
 //         );
 //     });
-// })
+//})

@@ -3,8 +3,7 @@ import { createProduct, getAllProducts, getProductById, updateProduct, updateAva
 import { handleInputErrors } from './middleware';
 import { body, param } from 'express-validator';
 
-
-const router = Router();
+//* Produstos
 /**
  * @swagger
  * components:
@@ -29,7 +28,33 @@ const router = Router();
  *                      description: The Product availability
  *                      example: true
  */
-
+//* Users
+/**
+ * @swagger
+ * components:
+ *      schemas:
+ *          Users:
+ *              type: object
+ *              properties:
+ *                  id:
+ *                      type: integer
+ *                      description: The User ID
+ *                      example: 1
+ *                  username:
+ *                      type: string
+ *                      description: The Username
+ *                      example: Daniela Luna
+ *                  email:
+ *                      type: string
+ *                      description: The User email
+ *                      example: example@gmail.com
+ *                  password:
+ *                      type: string
+ *                      description: The User passsword
+ *                      example: 123pass
+ * 
+ */
+const router = Router();
 router.get('/products', handleInputErrors, getAllProducts);
 
 router.get('/products/:id',
@@ -80,5 +105,5 @@ router.delete('/products/:id',
         .isNumeric().withMessage('El ID debe ser un número')
         .custom(value => value > 0).withMessage('El ID debe ser mayor que 0'),
     handleInputErrors, deleteProduct);
-    
+
 export default router;

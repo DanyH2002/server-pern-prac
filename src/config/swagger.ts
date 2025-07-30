@@ -3,11 +3,15 @@ import { SwaggerUiOptions } from "swagger-ui-express";
 
 const options: swaggerJSDoc.Options = {
     swaggerDefinition: {
-        openapi: "`3.0.2",
+        openapi: "3.0.2",
         tags: [
             {
                 name: "Products",
                 description: "Operaciones de API PERN con productos "
+            },
+            {
+                name: "Users",
+                description: "Operaciones de API PERN con users "
             }
         ],
         info: {
@@ -16,7 +20,7 @@ const options: swaggerJSDoc.Options = {
             description: "API Documentation para productos"
         }
     },
-    apis: ["../scr/router.ts"]
+    apis: ["./src/router.ts"]
 }
 
 const swaggerSpect = swaggerJSDoc(options)
