@@ -49,6 +49,129 @@ import { body, param } from 'express-validator';
  * 
  */
 
+/**
+ * @swagger
+ * /api/products/{id}:
+ *      get:
+ *          summary: Obtener un producto por ID
+ *          tags:
+ *              - Products
+ *          description: Regresa un producto específico por su ID
+ *          parameters:
+ *              - name: id
+ *                in: path
+ *                required: true
+ *                schema:
+ *                    type: integer
+ *          responses:
+ *              200:
+ *                  description: Producto encontrado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: "#/components/schemas/Product"
+ *              404:
+ *                  description: Producto no encontrado
+ */
+
+/**
+ * @swagger
+ * /api/products:
+ *      post:
+ *          summary: Crear un nuevo producto
+ *          tags:
+ *              - Products
+ *          description: Agrega un nuevo producto al sistema
+ *          requestBody:
+ *              required: true
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: "#/components/schemas/Product"
+ *          responses:
+ *              201:
+ *                  description: Producto creado exitosamente
+ */
+
+/**
+ * @swagger
+ * /api/products/{id}:
+ *      put:
+ *          summary: Actualizar un producto completamente
+ *          tags:
+ *              - Products
+ *          description: Actualiza toda la información de un producto por su ID
+ *          parameters:
+ *              - name: id
+ *                in: path
+ *                required: true
+ *                schema:
+ *                    type: integer
+ *          requestBody:
+ *              required: true
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: "#/components/schemas/Product"
+ *          responses:
+ *              200:
+ *                  description: Producto actualizado
+ *              404:
+ *                  description: Producto no encontrado
+ */
+
+/**
+ * @swagger
+ * /api/products/{id}:
+ *      patch:
+ *          summary: Actualizar la disponibilidad de un producto
+ *          tags:
+ *              - Products
+ *          description: Cambia solo la propiedad 'availability' de un producto
+ *          parameters:
+ *              - name: id
+ *                in: path
+ *                required: true
+ *                schema:
+ *                    type: integer
+ *          requestBody:
+ *              required: true
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              availability:
+ *                                  type: boolean
+ *                                  example: false
+ *          responses:
+ *              200:
+ *                  description: Disponibilidad actualizada
+ *              404:
+ *                  description: Producto no encontrado
+ */
+
+/**
+ * @swagger
+ * /api/products/{id}:
+ *      delete:
+ *          summary: Eliminar un producto por ID
+ *          tags:
+ *              - Products
+ *          description: Elimina un producto específico
+ *          parameters:
+ *              - name: id
+ *                in: path
+ *                required: true
+ *                schema:
+ *                    type: integer
+ *          responses:
+ *              200:
+ *                  description: Producto eliminado
+ *              404:
+ *                  description: Producto no encontrado
+ */
+
 //* Users
 /**
  * @swagger
@@ -75,6 +198,7 @@ import { body, param } from 'express-validator';
  *                      example: 123pass
  * 
  */
+
 const router = Router();
 router.get('/products', handleInputErrors, getAllProducts);
 
