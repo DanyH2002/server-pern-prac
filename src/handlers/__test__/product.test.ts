@@ -2,7 +2,6 @@ import request from "supertest";
 import server from "../../server";
 import { createProduct, getAllProducts, getProductById, updateProduct, updateAvailability, deleteProduct } from "../product";
 import Product from "../../models/Product.mo";
-jest.mock("../product")
 
 describe("POST /api/products", () => {
     it("Debe mostrar errores de validación si el cuerpo está vacío", async () => {
@@ -179,62 +178,68 @@ describe("DELETE /api/products/:id", () => {
 describe("Pase de logs", () => {
     it("No se crea el producto", async () => {
         const req: any = { body: { name: "Café", price: 20 } };
-        const res: any = { json: jest.fn() };
+        const res: any = { json: jest.fn(), status: jest.fn(() => res) };
         jest.spyOn(Product, "create").mockRejectedValueOnce(new Error("Error al crear el producto"));
         const logSpy = jest.spyOn(console, "log").mockImplementation(() => { });
         await createProduct(req, res);
         expect(logSpy).toHaveBeenCalledWith(
             expect.stringContaining("Error al crear el producto")
         );
+        logSpy.mockRestore();
     });
     it("No debe mostrar productos", async () => {
         const req: any = {};
         const res: any = { status: jest.fn(() => res), json: jest.fn() };
         jest.spyOn(Product, "findAll").mockRejectedValueOnce(new Error("Error al obtener los productos"));
-        const logSpy = jest.spyOn(console, "log");
+        const logSpy = jest.spyOn(console, "log").mockImplementation(() => { });
         await getAllProducts(req, res);
         expect(logSpy).toHaveBeenCalledWith(
             expect.stringContaining("Error al obtener los productos")
         );
+        logSpy.mockRestore();
     });
     it("Falla al obtener el producto por ID", async () => {
         const req: any = { params: { id: "1" } };
         const res: any = { status: jest.fn(() => res), json: jest.fn() };
         jest.spyOn(Product, "findByPk").mockRejectedValueOnce(new Error("Error al obtener el producto"));
-        const logSpy = jest.spyOn(console, "log");
+        const logSpy = jest.spyOn(console, "log").mockImplementation(() => { });
         await getProductById(req, res);
         expect(logSpy).toHaveBeenCalledWith(
             expect.stringContaining("Error al obtener el producto")
         );
+        logSpy.mockRestore();
     });
     it("Falla la actualización del producto", async () => {
         const req: any = { params: { id: "1" }, body: { name: "Nuevo" } };
         const res: any = { status: jest.fn(() => res), json: jest.fn() };
         jest.spyOn(Product, "findByPk").mockRejectedValueOnce(new Error("Error al actualizar el producto"));
-        const logSpy = jest.spyOn(console, "log");
+        const logSpy = jest.spyOn(console, "log").mockImplementation(() => { });
         await updateProduct(req, res);
         expect(logSpy).toHaveBeenCalledWith(
             expect.stringContaining("Error al actualizar el producto")
         );
+        logSpy.mockRestore();
     });
     it("Falla al actualizar la disponibilidad", async () => {
         const req: any = { params: { id: "1" } };
         const res: any = { status: jest.fn(() => res), json: jest.fn() };
         jest.spyOn(Product, "findByPk").mockRejectedValueOnce(new Error("Error al actualizar la disponibilidad del producto"));
-        const logSpy = jest.spyOn(console, "log");
+        const logSpy = jest.spyOn(console, "log").mockImplementation(() => { });
         await updateAvailability(req, res);
         expect(logSpy).toHaveBeenCalledWith(
             expect.stringContaining("Error al actualizar la disponibilidad del producto")
         );
+        logSpy.mockRestore();
     });
     it("Falla al eliminar el producto", async () => {
         const req: any = { params: { id: "1" } };
         const res: any = { status: jest.fn(() => res), json: jest.fn() };
         jest.spyOn(Product, "findByPk").mockRejectedValueOnce(new Error("Error al eliminar el producto"));
-        const logSpy = jest.spyOn(console, "log");
+        const logSpy = jest.spyOn(console, "log").mockImplementation(() => { });
         await deleteProduct(req, res);
         expect(logSpy).toHaveBeenCalledWith(
             expect.stringContaining("Error al eliminar el producto")
         );
+        logSpy.mockRestore();
     });
 })
