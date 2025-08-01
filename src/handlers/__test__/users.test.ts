@@ -366,7 +366,7 @@ describe("DELETE /api/users/:id", () => {
 
 describe("Pase de logs", () => {
     it("No se crea el usuario", async () => {
-        const req: any = { body: { username: "userHCL", email: 'ejemplo@getMaxListeners.com', password: 'pass987', role: 'user' } };
+        const req: any = { body: { username: "userL15", email: 'ejemplo@gmail.com', password: 'pass987', role: 'user' } };
         const res: any = { json: jest.fn(), status: jest.fn(() => res) };
         jest.spyOn(User, "create").mockRejectedValueOnce(new Error("Error al crear el usuario"));
         const logSpy = jest.spyOn(console, "log").mockImplementation(() => { });
@@ -399,7 +399,7 @@ describe("Pase de logs", () => {
         logSpy.mockRestore();
     });
     it("Falla la actualización del usuario", async () => {
-        const req: any = { params: { id: "1" }, body: { username: "userHCL", email: 'ejemplo@getMaxListeners.com', password: 'pass987', role: 'user' } };
+        const req: any = { params: { id: "1" }, body: { username: "userP26", email: 'ejemplo@@gmail.com', password: 'pass987', role: 'user' } };
         const res: any = { status: jest.fn(() => res), json: jest.fn() };
         jest.spyOn(User, "findByPk").mockRejectedValueOnce(new Error("Error al actualizar el usuario"));
         const logSpy = jest.spyOn(console, "log").mockImplementation(() => { });
