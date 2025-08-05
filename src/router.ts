@@ -131,32 +131,42 @@ router.post('/products',
         .custom(value => value > 0).withMessage('El precio debe ser mayor que 0'),
     handleInputErrors, createProduct);
 
-// /**
-//  * @swagger
-//  * /api/products/{id}:
-//  *      put:
-//  *          summary: Actualizar un producto completamente
-//  *          tags:
-//  *              - Products
-//  *          description: Actualiza toda la información de un producto por su ID
-//  *          parameters:
-//  *              - name: id
-//  *                in: path
-//  *                required: true
-//  *                schema:
-//  *                    type: integer
-//  *          requestBody:
-//  *              required: true
-//  *              content:
-//  *                  application/json:
-//  *                      schema:
-//  *                          $ref: "#/components/schemas/Product"
-//  *          responses:
-//  *              200:
-//  *                  description: Producto actualizado
-//  *              404:
-//  *                  description: Producto no encontrado
-//  */
+/**
+* @swagger
+* /api/products/{id}:
+*      put:
+*          summary: Actualizar un producto completamente
+*          tags:
+*              - Products
+*          description: Actualiza la información de un producto por su ID
+*          parameters:
+ *              - in: path
+ *                name: id
+ *                description: El ID del producto que se desea actualizar
+ *                required: true
+ *                schema:
+ *                    type: integer
+ *          requestBody:
+ *              required: true
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              name:
+ *                                  type: string
+ *                                  example: "Juego de mesa"
+ *                              price:
+ *                                  type: number
+ *                                  example: 60
+ *          responses:
+ *              200:
+ *                  description: Producto actualizado
+ *              400:
+ *                  description: Datos invalidos
+ *              404:
+ *                  description: Producto no encontrado
+*/
 router.put('/products/:id',
     param('id')
         .notEmpty().withMessage('El ID del producto es obligatorio')
