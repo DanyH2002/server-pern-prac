@@ -183,36 +183,29 @@ router.put('/products/:id',
         .custom(value => value > 0).withMessage('El precio debe ser mayor que 0'),
     handleInputErrors, updateProduct);
 
-// /**
-//  * @swagger
-//  * /api/products/{id}:
-//  *      patch:
-//  *          summary: Actualizar la disponibilidad de un producto
-//  *          tags:
-//  *              - Products
-//  *          description: Cambia solo la propiedad 'availability' de un producto
-//  *          parameters:
-//  *              - name: id
-//  *                in: path
-//  *                required: true
-//  *                schema:
-//  *                    type: integer
-//  *          requestBody:
-//  *              required: true
-//  *              content:
-//  *                  application/json:
-//  *                      schema:
-//  *                          type: object
-//  *                          properties:
-//  *                              availability:
-//  *                                  type: boolean
-//  *                                  example: false
-//  *          responses:
-//  *              200:
-//  *                  description: Disponibilidad actualizada
-//  *              404:
-//  *                  description: Producto no encontrado
-//  */
+/**
+ * @swagger
+ * /api/products/{id}:
+ *      patch:
+ *          summary: Actualizar la disponibilidad de un producto
+ *          tags:
+ *              - Products
+ *          description: Cambiar la disponibilidad de un producto
+ *          parameters:
+ *                - in: path
+ *                  name: id
+ *                  description: ID del producto
+ *                  required: true
+ *                  schema:
+ *                      type: integer
+ *          responses:
+ *              200:
+ *                  description: Disponibilidad actualizada
+ *              404:
+ *                  description: Producto no encontrado
+ *              400:
+ *                  description: Solicitud erronea
+ */
 router.patch('/products/:id',
     param('id')
         .notEmpty().withMessage('El ID del producto es obligatorio')
@@ -220,26 +213,28 @@ router.patch('/products/:id',
         .custom(value => value > 0).withMessage('El ID debe ser mayor que 0'),
     handleInputErrors, updateAvailability);
 
-// /**
-//  * @swagger
-//  * /api/products/{id}:
-//  *      delete:
-//  *          summary: Eliminar un producto por ID
-//  *          tags:
-//  *              - Products
-//  *          description: Elimina un producto específico
-//  *          parameters:
-//  *              - name: id
-//  *                in: path
-//  *                required: true
-//  *                schema:
-//  *                    type: integer
-//  *          responses:
-//  *              200:
-//  *                  description: Producto eliminado
-//  *              404:
-//  *                  description: Producto no encontrado
-//  */
+/**
+ * @swagger
+ * /api/products/{id}:
+ *      delete:
+ *          summary: Eliminar un producto por ID
+ *          tags:
+ *              - Products
+ *          description: Elimina un producto específico
+ *          parameters:
+ *              - name: id
+ *                in: path
+ *                required: true
+ *                schema:
+ *                    type: integer
+ *          responses:
+ *              200:
+ *                  description: Producto eliminado
+ *              404:
+ *                  description: Producto no encontrado 
+ *              400:
+ *                  description: Solicitud erronea
+ */
 router.delete('/products/:id',
     param('id')
         .notEmpty().withMessage('El ID del producto es obligatorio')
